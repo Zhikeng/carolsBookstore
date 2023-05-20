@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://kongzhikeng:Terryhunt829@cluster0.kzu1tba.mongodb.net/carolsBookstore?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
   if(!err) {
     console.log("Successful connection with MongoDB Server");  
   }
