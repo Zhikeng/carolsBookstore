@@ -13,6 +13,16 @@ const app = express();
 // const PORT = 3000;
 const PORT = process.env.PORT || 3000;
 
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.DB_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
 app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,10 +41,20 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(routes);
 
+app.all('*', (req,res) => {
+    res.json({"every thing":"is awesome"})
+})
+
 require('./config/connection');
 
-app.listen(PORT, () => {
-    console.log(`The server is listening on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`The server is listening on port ${PORT}`);
+// });
+
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
+})
 
 
