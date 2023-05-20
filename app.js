@@ -32,31 +32,31 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(routes);
 
-app.all('*', (req,res) => {
-    res.json({"every thing":"is awesome"})
-})
+// app.all('*', (req,res) => {
+//     res.json({"every thing":"is awesome"})
+// })
 
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.DB_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-}
+// const connectDB = async () => {
+//   try {
+//     const conn = await mongoose.connect(process.env.DB_URI);
+//     console.log(`MongoDB Connected: ${conn.connection.host}`);
+//   } catch (error) {
+//     console.log(error);
+//     process.exit(1);
+//   }
+// }
 
-// require('./config/connection');
+require('./config/connection');
 
-// app.listen(PORT, () => {
-//     console.log(`The server is listening on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`The server is listening on port ${PORT}`);
+});
 
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log("listening for requests");
-    })
-})
+// connectDB().then(() => {
+//     app.listen(PORT, () => {
+//         console.log("listening for requests");
+//     })
+// })
 
 
 
