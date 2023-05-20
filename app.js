@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose')
 
 const path = require('path');
 const methodOverride = require('method-override');
@@ -35,11 +36,27 @@ app.all('*', (req,res) => {
     res.json({"every thing":"is awesome"})
 })
 
-require('./config/connection');
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 
-app.listen(PORT, () => {
-    console.log(`The server is listening on port ${PORT}`);
-});
+// require('./config/connection');
+
+// app.listen(PORT, () => {
+//     console.log(`The server is listening on port ${PORT}`);
+// });
+
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
+})
 
 
 
