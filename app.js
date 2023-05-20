@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-const mongoose = require('mongoose')
 
 const path = require('path');
 const methodOverride = require('method-override');
@@ -13,16 +12,6 @@ const routes = require('./routes/index');
 const app = express();
 // const PORT = 3000;
 const PORT = process.env.PORT || 3000;
-
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.DB_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-}
 
 app.set('view engine', 'ejs');
 
