@@ -37,14 +37,10 @@ app.all('*', (req,res) => {
 
 require('./config/connection');
 
-// app.listen(PORT, () => {
-//     console.log(`The server is listening on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`The server is listening on port ${PORT}`);
+});
 
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log("listening for requests");
-    })
-})
+
 
 
